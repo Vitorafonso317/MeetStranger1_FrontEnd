@@ -7,7 +7,7 @@ const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get('window');
 export const CARD_SIZE = Math.min((SCREEN_W - 20 * 2 - 18) / 1, SCREEN_H * 0.18);
 
 export const styles = StyleSheet.create({
-    bg: { flex: 1, width: '100%', overflow: 'hidden' },
+    bg: { flex: 1, width: '100%', height: '100%', overflow: 'hidden' },
     safeArea: { flex: 1, width: '100%', overflow: 'hidden' },
     overlay: {
         flex: 1,
@@ -22,9 +22,9 @@ export const styles = StyleSheet.create({
         marginTop: 10,
     },
     logoImage: {
-        width: Math.min(180, SCREEN_H * 0.22),
-        height: Math.min(180, SCREEN_H * 0.22),
-        marginBottom: 0,
+        width: Math.min(3000, SCREEN_H * 0.22),
+        height: Math.min(3000, SCREEN_H * 0.22),
+        marginBottom: -70,
     },
     meetText: {
         fontSize: FONT_SIZE.display,

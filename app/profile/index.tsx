@@ -1,30 +1,28 @@
 import React from 'react';
 import {
+    Image,
     ImageBackground,
     KeyboardAvoidingView,
     Platform,
     Text,
     TouchableOpacity,
     View,
-    Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
 import { AVATARS } from '../../constants/avatars';
 import { useProfile } from '../../hooks/useProfile';
+import { COLORS } from '../../constants/colors';
 import { styles } from '../../styles/screens/profileStyles';
 
 const bgImage = require('../../assets/TelaInicio.svg');
 
 export default function Profile() {
     const router = useRouter();
-    const { userName, setUserName, selectedAvatar, setSelectedAvatar, currentEmoji, saving, saveProfile } = useProfile();
-
-    const handleSettings = () => {
-        Alert.alert('Configurações', 'Em breve.');
-    };
+    const { userName, setUserName, selectedAvatar, setSelectedAvatar, currentSource, saving, saveProfile } = useProfile();
 
     return (
         <ImageBackground source={bgImage} style={styles.bg} resizeMode="cover">
@@ -41,29 +39,19 @@ export default function Profile() {
                             accessibilityLabel="Voltar"
                             accessibilityHint="Toque para voltar à tela anterior"
                         >
-                            <Text style={styles.headerArrow}>←</Text>
+                            <Ionicons name="arrow-back" size={28} color={COLORS.primary} />
                         </TouchableOpacity>
 
                         <Text style={styles.headerTitle}>Perfil</Text>
 
-                        <TouchableOpacity
-                            style={styles.headerBtn}
-                            onPress={handleSettings}
-                            accessibilityLabel="Configurações"
-                            accessibilityHint="Toque para abrir as configurações"
-                        >
-                            <Text style={styles.headerGear}>⚙</Text>
-                        </TouchableOpacity>
+                        <View style={styles.headerBtn} />
                     </View>
 
                     <View style={styles.content}>
                         <View style={styles.card}>
-                            <View
-                                style={styles.avatarWrapper}
-                                accessibilityLabel={`Avatar atual: ${currentEmoji}`}
-                            >
+                            <View style={styles.avatarWrapper} accessibilityLabel="Avatar atual">
                                 <View style={styles.avatarCircle}>
-                                    <Text style={styles.avatarEmoji}>{currentEmoji}</Text>
+                                    <Image source={currentSource} style={styles.avatarImage} />
                                 </View>
                                 <TouchableOpacity
                                     style={styles.editBtn}
@@ -99,11 +87,11 @@ export default function Profile() {
                                         ]}
                                         onPress={() => setSelectedAvatar(avatar.id)}
                                         activeOpacity={0.75}
-                                        accessibilityLabel={`Avatar ${avatar.emoji}`}
+                                        accessibilityLabel={`Avatar ${avatar.id}`}
                                         accessibilityHint="Toque para selecionar este avatar"
                                         accessibilityState={{ selected: selectedAvatar === avatar.id }}
                                     >
-                                        <Text style={styles.avatarItemEmoji}>{avatar.emoji}</Text>
+                                        <Image source={avatar.source} style={styles.avatarItemImage} />
                                     </TouchableOpacity>
                                 ))}
                             </View>

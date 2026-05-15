@@ -4,7 +4,7 @@ import { SPACING, BORDER_RADIUS, BORDER_WIDTH } from '../../constants/spacing';
 import { FONT_SIZE, FONT_WEIGHT } from '../../constants/typography';
 
 export const styles = StyleSheet.create({
-    bg: { flex: 1, width: '100%', overflow: 'hidden' },
+    bg: { flex: 1, width: '100%', height: '100%', overflow: 'hidden' },
     safeArea: { flex: 1, width: '100%', overflow: 'hidden' },
     header: {
         backgroundColor: COLORS.headerBg,

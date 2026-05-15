@@ -10,7 +10,9 @@ import {
     ImageBackground,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import { COLORS } from '../../constants/colors';
 import ChatMessage from '../components/ChatMessage';
 import { useChat } from '../../hooks/useChat';
 import { styles } from '../../styles/screens/roomStyles';
@@ -59,8 +61,8 @@ export default function ChatRoom() {
                 >
                     {/* Header */}
                     <View style={styles.header}>
-                        <TouchableOpacity onPress={() => router.back()} style={styles.headerSideBtn}>
-                            <Text style={styles.headerArrowRed}>←</Text>
+                        <TouchableOpacity onPress={() => router.back()} style={styles.headerSideBtn} accessibilityLabel="Voltar">
+                            <Ionicons name="arrow-back" size={26} color={COLORS.primary} />
                         </TouchableOpacity>
 
                         <View style={styles.headerCenter}>
@@ -69,8 +71,8 @@ export default function ChatRoom() {
                             </Text>
                         </View>
 
-                        <TouchableOpacity onPress={findNewPartner} style={styles.headerSideBtn}>
-                            <Text style={styles.headerArrowDark}>→</Text>
+                        <TouchableOpacity onPress={findNewPartner} style={styles.headerSideBtn} accessibilityLabel="Novo parceiro">
+                            <Ionicons name="arrow-forward" size={26} color={COLORS.text} />
                         </TouchableOpacity>
                     </View>
 

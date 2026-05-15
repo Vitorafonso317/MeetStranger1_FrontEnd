@@ -7,7 +7,9 @@ import {
     TextInput,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { COLORS } from '../../constants/colors';
 import { styles } from '../../styles/screens/aboutStyles';
 
 const bgImage = require('../../assets/TelaInicio.svg');
@@ -45,7 +47,7 @@ export default function About() {
                         onPress={() => setActive('home')}
                         style={{ alignSelf: 'flex-start', marginBottom: 16 }}
                     >
-                        <Text style={styles.backButton}>← Voltar</Text>
+                        <Text style={styles.backButton}><Ionicons name="arrow-back" size={16} color={COLORS.primary} /> Voltar</Text>
                     </TouchableOpacity>
 
                     <Text style={styles.logoMeet}>MEET</Text>
@@ -88,7 +90,7 @@ export default function About() {
                         onPress={() => setActive('home')}
                         style={{ alignSelf: 'flex-start', marginBottom: 16 }}
                     >
-                        <Text style={styles.backButton}>← Voltar</Text>
+                        <Text style={styles.backButton}><Ionicons name="arrow-back" size={16} color={COLORS.primary} /> Voltar</Text>
                     </TouchableOpacity>
 
                     <Text style={styles.logoMeet}>MEET</Text>
@@ -116,7 +118,7 @@ export default function About() {
                         onPress={() => setActive('home')}
                         style={{ alignSelf: 'flex-start', marginBottom: 16 }}
                     >
-                        <Text style={styles.backButton}>← Voltar</Text>
+                        <Text style={styles.backButton}><Ionicons name="arrow-back" size={16} color={COLORS.primary} /> Voltar</Text>
                     </TouchableOpacity>
 
                     <Text style={styles.logoMeet}>MEET</Text>
@@ -143,7 +145,7 @@ export default function About() {
                         onPress={() => setActive('home')}
                         style={{ alignSelf: 'flex-start', marginBottom: 16 }}
                     >
-                        <Text style={styles.backButton}>← Voltar</Text>
+                        <Text style={styles.backButton}><Ionicons name="arrow-back" size={16} color={COLORS.primary} /> Voltar</Text>
                     </TouchableOpacity>
 
                     <Text style={styles.logoMeet}>MEET</Text>
@@ -171,8 +173,8 @@ export default function About() {
             <SafeAreaView style={styles.safeArea}>
                 {/* Header */}
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={() => router.back()} style={styles.headerBtn}>
-                        <Text style={styles.headerArrow}>←</Text>
+                    <TouchableOpacity onPress={() => router.back()} style={styles.headerBtn} accessibilityLabel="Voltar">
+                        <Ionicons name="arrow-back" size={28} color={COLORS.primary} />
                     </TouchableOpacity>
                     <Text style={styles.headerTitle}>Sobre</Text>
                     <View style={styles.headerBtn} />

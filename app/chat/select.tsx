@@ -6,7 +6,9 @@ import {
     ImageBackground,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { COLORS } from '../../constants/colors';
 import { styles } from '../../styles/screens/selectStyles';
 
 const bgImage = require('../../assets/TelaInicio.svg');
@@ -36,8 +38,8 @@ export default function Select() {
             <SafeAreaView style={styles.safeArea}>
                 {/* Header */}
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={() => router.back()} style={styles.headerBtn}>
-                        <Text style={styles.headerArrowRed}>←</Text>
+                    <TouchableOpacity onPress={() => router.back()} style={styles.headerBtn} accessibilityLabel="Voltar">
+                        <Ionicons name="arrow-back" size={28} color={COLORS.primary} />
                     </TouchableOpacity>
                     <Text style={styles.headerTitle}>Tópicos</Text>
                     <View style={styles.headerBtn} />

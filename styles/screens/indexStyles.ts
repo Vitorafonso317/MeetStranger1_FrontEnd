@@ -8,7 +8,7 @@ const BUTTON_WIDTH = SCREEN_W * 0.82;
 const LOGO_SIZE = Math.min(180, SCREEN_H * 0.22);
 
 export const styles = StyleSheet.create({
-    bg: { flex: 1, width: '100%', overflow: 'hidden' },
+    bg: { flex: 1, width: '100%', height: '100%', overflow: 'hidden' },
     safeArea: { flex: 1, width: '100%', overflow: 'hidden' },
     logoImage: {
         width: LOGO_SIZE,
@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
     },
     bottomRow: {
         alignItems: 'center',
-        gap: 50,
+        gap: 25,
     },
     btn: {
         width: BUTTON_WIDTH,

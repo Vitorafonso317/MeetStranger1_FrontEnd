@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-Command git -ErrorAction SilentlyContinue; \\(Get-Command git -ErrorAction SilentlyContinue\\).Source)",
+      "Read(//c/Program Files/Git/bin/**)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Users/vitor/scoop/shims/**)",
+      "Read(//c//**)"
+    ]
+  }
+}

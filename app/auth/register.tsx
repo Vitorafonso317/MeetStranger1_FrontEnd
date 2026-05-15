@@ -9,9 +9,11 @@ import {
     View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
+import { COLORS } from '../../constants/colors';
 import { styles } from '../../styles/screens/registerStyles';
 
 const bgImage = require('../../assets/TelaInicio.svg');
@@ -108,6 +110,15 @@ export default function Register() {
                                 accessibilityHint="Ir para a tela de login"
                             >
                                 <Text style={styles.switchText}>Já tem conta? Faça login</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => router.push('/')} // Adjusted to navigate to the app's initial screen
+                                accessibilityLabel="Voltar para a tela inicial"
+                                accessibilityHint="Toque para voltar para a tela inicial do aplicativo"
+                                style={styles.backArrow}
+                            >
+                                <Ionicons name="arrow-back" size={22} color={COLORS.primary} />
                             </TouchableOpacity>
                         </View>
                     </View>

@@ -4,10 +4,10 @@ import { AVATARS, AvatarId } from '../constants/avatars';
 
 export function useProfile() {
     const [userName, setUserName] = useState('Usuário');
-    const [selectedAvatar, setSelectedAvatar] = useState<AvatarId>('1');
+    const [selectedAvatar, setSelectedAvatar] = useState<AvatarId>('15');
     const [saving, setSaving] = useState(false);
 
-    const currentEmoji = AVATARS.find(a => a.id === selectedAvatar)?.emoji ?? '🐱';
+    const currentSource = AVATARS.find(a => a.id === selectedAvatar)?.source ?? AVATARS[0].source;
 
     const saveProfile = async () => {
         if (!userName.trim()) {
@@ -31,7 +31,7 @@ export function useProfile() {
         setUserName,
         selectedAvatar,
         setSelectedAvatar,
-        currentEmoji,
+        currentSource,
         saving,
         saveProfile,
     };

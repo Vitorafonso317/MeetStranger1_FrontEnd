@@ -1,16 +1,12 @@
-export const AVATARS = [
-    { id: '1',  emoji: '🐱' },
-    { id: '2',  emoji: '🐶' },
-    { id: '3',  emoji: '🦊' },
-    { id: '4',  emoji: '🐰' },
-    { id: '5',  emoji: '🐼' },
-    { id: '6',  emoji: '🐨' },
-    { id: '7',  emoji: '🦁' },
-    { id: '8',  emoji: '🐯' },
-    { id: '9',  emoji: '🐮' },
-    { id: '10', emoji: '🐸' },
-    { id: '11', emoji: '🎃' },
-    { id: '12', emoji: '👻' },
-] as const;
+export type AvatarId = '15' | '16' | '17' | '18' | '19' | '20';
 
-export type AvatarId = typeof AVATARS[number]['id'];
+type Avatar = { id: AvatarId; source: ReturnType<typeof require> };
+
+export const AVATARS: readonly Avatar[] = [
+    { id: '15', source: require('../assets/15.png') },
+    { id: '16', source: require('../assets/16.png') },
+    { id: '17', source: require('../assets/17.png') },
+    { id: '18', source: require('../assets/18.png') },
+    { id: '19', source: require('../assets/19.png') },
+    { id: '20', source: require('../assets/20.png') },
+];

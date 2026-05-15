@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     bg: {
         flex: 1,
         width: '100%',
+        height: '100%',
         overflow: 'hidden',
     },
     safeArea: {
@@ -115,5 +116,12 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: FONT_WEIGHT.semibold,
         marginTop: SPACING.md,
+    },
+    backArrow: {
+        alignSelf: 'center',
+        marginTop: SPACING.sm,
+        padding: SPACING.sm,
+        borderRadius: BORDER_RADIUS.full,
+        backgroundColor: 'rgba(178,13,29,0.08)',
     },
 });
