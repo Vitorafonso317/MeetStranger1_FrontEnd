@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import {
-    Text,
-    View,
     Alert,
+    ImageBackground,
     KeyboardAvoidingView,
     Platform,
-    ImageBackground,
-    StyleSheet,
+    Text,
     TouchableOpacity,
-    TextInput,
-    ScrollView,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import CustomButton from '../../components/CustomButton';
+import CustomInput from '../../components/CustomInput';
+import { styles } from '../../styles/screens/registerStyles';
 
 const bgImage = require('../../assets/TelaInicio.svg');
 
@@ -33,10 +33,13 @@ export default function Register() {
             Alert.alert('Erro', 'As senhas não coincidem. Tente novamente.');
             return;
         }
+        setLoading(true);
         try {
             router.replace('/home');
-        } catch (error) {
+        } catch {
             Alert.alert('Erro', 'Ocorreu um erro ao tentar registrar. Tente novamente.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -48,239 +51,68 @@ export default function Register() {
                     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                     keyboardVerticalOffset={Platform.OS === 'android' ? -85 : 0}
                 >
-                    {/* Register tem 4 campos — precisa de scroll em telas pequenas */}
-                    <ScrollView
-                        contentContainerStyle={styles.scroll}
-                        keyboardShouldPersistTaps="handled"
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        bounces={false}
-                        overScrollMode="never"
-                    >
-                        {/* Título */}
+                    <View style={styles.content}>
                         <Text style={styles.pageTitle}>REGISTER</Text>
                         <Text style={styles.pageSubtitle}>CRIE SUA CONTA!!</Text>
                         <View style={styles.subtitleUnderline} />
 
-                        {/* Card formulário */}
                         <View style={styles.card}>
-                            <Text style={styles.fieldLabel}>Nome</Text>
-                            <TextInput
-                                style={styles.input}
+                            <CustomInput
+                                label="Nome"
                                 value={name}
                                 onChangeText={setName}
                                 placeholder="Seu nome de usuário"
-                                placeholderTextColor="#aaa"
+                                accessibilityHint="Digite seu nome de usuário"
                             />
 
-                            <Text style={styles.fieldLabel}>email</Text>
-                            <TextInput
-                                style={styles.input}
+                            <CustomInput
+                                label="Email"
                                 value={email}
                                 onChangeText={setEmail}
                                 keyboardType="email-address"
                                 autoCapitalize="none"
                                 placeholder="seu@email.com"
-                                placeholderTextColor="#aaa"
+                                accessibilityHint="Digite seu endereço de e-mail"
                             />
 
-                            <Text style={styles.fieldLabel}>Senha</Text>
-                            <TextInput
-                                style={styles.input}
+                            <CustomInput
+                                label="Senha"
                                 value={password}
                                 onChangeText={setPassword}
                                 secureTextEntry
                                 placeholder="••••••••"
-                                placeholderTextColor="#aaa"
+                                accessibilityHint="Digite uma senha"
                             />
 
-                            <Text style={styles.fieldLabel}>Confirmar senha</Text>
-                            <TextInput
-                                style={styles.input}
+                            <CustomInput
+                                label="Confirmar senha"
                                 value={confirmPassword}
                                 onChangeText={setConfirmPassword}
                                 secureTextEntry
                                 placeholder="••••••••"
-                                placeholderTextColor="#aaa"
+                                accessibilityHint="Repita a senha digitada"
+                            />
+
+                            <CustomButton
+                                title="Criar conta"
+                                onPress={handleRegister}
+                                loading={loading}
+                                style={styles.submitBtn}
+                                accessibilityLabel="Criar conta"
+                                accessibilityHint="Toque para criar sua conta"
                             />
 
                             <TouchableOpacity
-                                style={loading ? styles.submitBtnDisabled : styles.submitBtn}
-                                onPress={handleRegister}
-                                disabled={loading}
-                                activeOpacity={0.8}
+                                onPress={() => router.push('/auth/login')}
+                                accessibilityLabel="Fazer login"
+                                accessibilityHint="Ir para a tela de login"
                             >
-                                <Text style={styles.submitBtnText}>
-                                    {loading ? 'Registrando...' : 'Entrar'}
-                                </Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => router.push('/auth/login')}>
                                 <Text style={styles.switchText}>Já tem conta? Faça login</Text>
                             </TouchableOpacity>
                         </View>
-                    </ScrollView>
+                    </View>
                 </KeyboardAvoidingView>
             </SafeAreaView>
         </ImageBackground>
     );
 }
-
-const styles = StyleSheet.create({
-    bg: {
-        flex: 1,
-        width: '100%',
-    },
-    safeArea: {
-        flex: 1,
-        width: '100%',
-    },
-    flex: {
-        flex: 1,
-        width: '100%',
-    },
-    scroll: {
-        flexGrow: 1,
-        justifyContent: 'center',
-        width: '100%',
-        paddingHorizontal: 20,
-        paddingVertical: 24,
-    },
-    pageTitle: {
-        fontSize: 48,
-        fontWeight: '900',
-        color: '#b20d1d',
-        textAlign: 'center',
-        letterSpacing: 3,
-        marginBottom: 8,
-        ...Platform.select({
-            web: { textShadow: '3px 3px 0px #000' },
-            default: {
-                textShadowColor: '#000',
-                textShadowOffset: { width: 3, height: 3 },
-                textShadowRadius: 0,
-            },
-        }),
-    },
-    pageSubtitle: {
-        fontSize: 18,
-        fontWeight: '900',
-        color: '#2196F3',
-        textAlign: 'center',
-        letterSpacing: 2,
-        marginTop: 8,
-        ...Platform.select({
-            web: { textShadow: '1px 1px 0px #000' },
-            default: {
-                textShadowColor: '#000',
-                textShadowOffset: { width: 1, height: 1 },
-                textShadowRadius: 0,
-            },
-        }),
-    },
-    subtitleUnderline: {
-        height: 3,
-        backgroundColor: '#2196F3',
-        width: '70%',
-        alignSelf: 'center',
-        marginTop: 6,
-        marginBottom: 20,
-        borderRadius: 2,
-    },
-    card: {
-        width: '100%',
-        backgroundColor: '#fff9f1',
-        borderRadius: 16,
-        borderWidth: 3,
-        borderColor: '#000',
-        padding: 16,
-        ...Platform.select({
-            web: { boxShadow: '3px 3px 0px #000' },
-            default: {
-                shadowColor: '#000',
-                shadowOffset: { width: 3, height: 3 },
-                shadowOpacity: 1,
-                shadowRadius: 0,
-                elevation: 6,
-            },
-        }),
-    },
-    fieldLabel: {
-        fontSize: 16,
-        fontWeight: '900',
-        color: '#2196F3',
-        marginBottom: 6,
-        letterSpacing: 1,
-        ...Platform.select({
-            web: { textShadow: '1px 1px 0px #000' },
-            default: {
-                textShadowColor: '#000',
-                textShadowOffset: { width: 1, height: 1 },
-                textShadowRadius: 0,
-            },
-        }),
-    },
-    input: {
-        backgroundColor: '#e8f4fb',
-        borderRadius: 12,
-        borderWidth: 2,
-        borderColor: '#000',
-        paddingHorizontal: 14,
-        paddingVertical: 11,
-        fontSize: 15,
-        color: '#333',
-        marginBottom: 10,
-    },
-    submitBtn: {
-        backgroundColor: '#fff9f1',
-        borderRadius: 28,
-        borderWidth: 3,
-        borderColor: '#000',
-        paddingVertical: 13,
-        alignItems: 'center',
-        marginTop: 8,
-        marginBottom: 12,
-        ...Platform.select({
-            web: { boxShadow: '3px 3px 0px #000' },
-            default: {
-                shadowColor: '#000',
-                shadowOffset: { width: 3, height: 3 },
-                shadowOpacity: 1,
-                shadowRadius: 0,
-                elevation: 4,
-            },
-        }),
-    },
-    submitBtnDisabled: {
-        backgroundColor: '#fff9f1',
-        borderRadius: 28,
-        borderWidth: 3,
-        borderColor: '#000',
-        paddingVertical: 13,
-        alignItems: 'center',
-        marginTop: 8,
-        marginBottom: 12,
-        opacity: 0.5,
-    },
-    submitBtnText: {
-        fontSize: 22,
-        fontWeight: '900',
-        color: '#b20d1d',
-        letterSpacing: 2,
-        ...Platform.select({
-            web: { textShadow: '2px 2px 0px #000' },
-            default: {
-                textShadowColor: '#000',
-                textShadowOffset: { width: 2, height: 2 },
-                textShadowRadius: 0,
-            },
-        }),
-    },
-    switchText: {
-        fontSize: 13,
-        color: '#8B4513',
-        textAlign: 'center',
-        fontWeight: '600',
-        marginTop: 12,
-    },
-});

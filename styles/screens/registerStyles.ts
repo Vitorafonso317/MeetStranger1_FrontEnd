@@ -1,14 +1,119 @@
-// Estilos do Register foram migrados para inline no componente app/auth/register.tsx
-// Este arquivo é mantido para compatibilidade
 import { StyleSheet } from 'react-native';
-import { colors } from '../../constants/colors';
+import { COLORS, SHADOWS, TEXT_SHADOWS } from '../../constants/colors';
+import { SPACING, BORDER_RADIUS, BORDER_WIDTH } from '../../constants/spacing';
+import { FONT_SIZE, FONT_WEIGHT } from '../../constants/typography';
 
-export const registerStyles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background },
-    content: { flex: 1, paddingHorizontal: 24, justifyContent: 'center', alignItems: 'center' },
-    logo: { width: 120, height: 120 },
-    title: { fontSize: 32, fontWeight: '900', color: colors.red, textAlign: 'center' },
-    subtitle: { fontSize: 16, color: colors.textSecondary, textAlign: 'center' },
-    inputContainer: { width: '100%' },
-    registerButton: { marginTop: 16 },
+export const styles = StyleSheet.create({
+    bg: {
+        flex: 1,
+        width: '100%',
+        overflow: 'hidden',
+    },
+    safeArea: {
+        flex: 1,
+        width: '100%',
+        overflow: 'hidden',
+    },
+    flex: {
+        flex: 1,
+        width: '100%',
+    },
+    content: {
+        flex: 1,
+        justifyContent: 'center',
+        width: '100%',
+        paddingHorizontal: SPACING.xl,
+        paddingVertical: SPACING.xxl,
+    },
+    pageTitle: {
+        fontSize: FONT_SIZE.h1,
+        fontWeight: FONT_WEIGHT.black,
+        color: COLORS.primary,
+        textAlign: 'center',
+        letterSpacing: 3,
+        marginBottom: SPACING.sm,
+        ...TEXT_SHADOWS.lg,
+    },
+    pageSubtitle: {
+        fontSize: FONT_SIZE.lg,
+        fontWeight: FONT_WEIGHT.black,
+        color: COLORS.accent,
+        textAlign: 'center',
+        letterSpacing: 2,
+        marginTop: SPACING.sm,
+        ...TEXT_SHADOWS.sm,
+    },
+    subtitleUnderline: {
+        height: BORDER_WIDTH.regular,
+        backgroundColor: COLORS.accent,
+        width: '70%',
+        alignSelf: 'center',
+        marginTop: 6,
+        marginBottom: SPACING.xl,
+        borderRadius: 2,
+    },
+    card: {
+        width: '100%',
+        backgroundColor: COLORS.surface,
+        borderRadius: BORDER_RADIUS.lg,
+        borderWidth: BORDER_WIDTH.regular,
+        borderColor: COLORS.border,
+        padding: SPACING.lg,
+        ...SHADOWS.md,
+    },
+    fieldLabel: {
+        fontSize: FONT_SIZE.md,
+        fontWeight: FONT_WEIGHT.black,
+        color: COLORS.accent,
+        marginBottom: 6,
+        letterSpacing: 1,
+        ...TEXT_SHADOWS.sm,
+    },
+    input: {
+        backgroundColor: COLORS.accentLight,
+        borderRadius: BORDER_RADIUS.md,
+        borderWidth: BORDER_WIDTH.thin,
+        borderColor: COLORS.border,
+        paddingHorizontal: 14,
+        paddingVertical: 11,
+        fontSize: FONT_SIZE.base,
+        color: COLORS.text,
+        marginBottom: 10,
+    },
+    submitBtn: {
+        backgroundColor: COLORS.surface,
+        borderRadius: BORDER_RADIUS.xxl,
+        borderWidth: BORDER_WIDTH.regular,
+        borderColor: COLORS.border,
+        paddingVertical: 13,
+        alignItems: 'center',
+        marginTop: SPACING.sm,
+        marginBottom: SPACING.md,
+        ...SHADOWS.md,
+    },
+    submitBtnDisabled: {
+        backgroundColor: COLORS.surface,
+        borderRadius: BORDER_RADIUS.xxl,
+        borderWidth: BORDER_WIDTH.regular,
+        borderColor: COLORS.border,
+        paddingVertical: 13,
+        alignItems: 'center',
+        marginTop: SPACING.sm,
+        marginBottom: SPACING.md,
+        opacity: 0.5,
+    },
+    submitBtnText: {
+        fontSize: FONT_SIZE.xxl,
+        fontWeight: FONT_WEIGHT.black,
+        color: COLORS.primary,
+        letterSpacing: 2,
+        ...TEXT_SHADOWS.md,
+    },
+    switchText: {
+        fontSize: FONT_SIZE.sm,
+        color: COLORS.textBrown,
+        textAlign: 'center',
+        fontWeight: FONT_WEIGHT.semibold,
+        marginTop: SPACING.md,
+    },
 });

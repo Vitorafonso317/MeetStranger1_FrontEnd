@@ -1,181 +1,99 @@
-// Importa React
 import React from 'react';
-
-// Importa componentes do React Native
-import { View, Text, StyleSheet } from 'react-native';
-
-// Importa tokens de cores
+import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { Colors } from '../tokens/colors';
+import { Spacing } from '../tokens/spacing';
 
-// Importa tokens de espaçamento e borda
-import { Spacing, BorderRadius } from '../tokens/spacing';
+const balaoFala1 = require('../../assets/BalaoFala1.svg');
+const balaoFala2 = require('../../assets/BalaoFala2.svg');
 
-// Define posição da mensagem (esquerda = outro usuário, direita = usuário atual)
 export type ChatBubblePosition = 'left' | 'right';
 
-// Interface das props
 interface ChatBubbleProps {
-  message: string;                 // Texto da mensagem
-  position: ChatBubblePosition;    // Posição da bolha
-  timestamp?: string;              // Horário (opcional)
-  username?: string;               // Nome do usuário (opcional)
-  showUsername?: boolean;          // Exibir nome (opcional)
+  message: string;
+  position: ChatBubblePosition;
+  timestamp?: string;
+  username?: string;
+  showUsername?: boolean;
 }
 
-// Componente ChatBubble
-export function ChatBubble({
+export const ChatBubble = React.memo(function ChatBubble({
   message,
   position,
   timestamp,
   username,
-  showUsername = false, // padrão: não mostrar username
+  showUsername = false,
 }: ChatBubbleProps) {
-
-  // Verifica se a mensagem é do usuário atual
   const isUser = position === 'right';
 
   return (
-    <View
-
-      // Define alinhamento com base na origem da mensagem
-      style={[
-        styles.container,                    // Base
-        isUser ? styles.userContainer        // Direita
-               : styles.otherContainer,      // Esquerda
-      ]}
-    >
-
-      {/* Mostra username apenas se:
-          - habilitado
-          - existe username
-          - não é mensagem do próprio usuário */}
+    <View style={[styles.container, isUser ? styles.userContainer : styles.otherContainer]}>
       {showUsername && username && !isUser && (
         <Text style={styles.username}>{username}</Text>
       )}
-      
-      <View
-
-        // Estilo da bolha
-        style={[
-          styles.bubble,                 // Base da bolha
-          isUser ? styles.userBubble     // Usuário
-                 : styles.otherBubble,   // Outro usuário
-        ]}
+      <ImageBackground
+        source={isUser ? balaoFala1 : balaoFala2}
+        style={[styles.bubble, isUser ? styles.userBubble : styles.otherBubble]}
+        resizeMode="stretch"
       >
-
-        <Text
-
-          // Estilo do texto da mensagem
-          style={[
-            styles.message,              // Base
-            isUser ? styles.userMessage  // Cor usuário
-                   : styles.otherMessage,// Cor outro
-          ]}
-        >
+        <Text style={[styles.message, isUser ? styles.userMessage : styles.otherMessage]}>
           {message}
         </Text>
-        
-        {/* Renderiza timestamp se existir */}
         {timestamp && (
-          <Text
-
-            // Estilo do timestamp (varia por lado)
-            style={[
-              styles.timestamp,                  // Base
-              isUser ? styles.userTimestamp      // Usuário
-                     : styles.otherTimestamp,    // Outro
-            ]}
-          >
+          <Text style={[styles.timestamp, isUser ? styles.userTimestamp : styles.otherTimestamp]}>
             {timestamp}
           </Text>
         )}
-
-      </View>
+      </ImageBackground>
     </View>
   );
-}
+});
 
-// Estilos
 const styles = StyleSheet.create({
-
-  // Container externo da mensagem
   container: {
-    marginVertical: Spacing.xs,        // Espaço entre mensagens
-    paddingHorizontal: Spacing.md,     // Espaço lateral
+    marginVertical: Spacing.xs,
+    paddingHorizontal: Spacing.md,
   },
-  
-  // Alinhamento à direita (usuário)
   userContainer: {
     alignItems: 'flex-end',
   },
-
-  // Alinhamento à esquerda (outros)
   otherContainer: {
     alignItems: 'flex-start',
   },
-  
-  // Base da bolha
   bubble: {
-    maxWidth: '80%',                  // Limita largura
-    paddingHorizontal: Spacing.md,    // Padding lateral
-    paddingVertical: Spacing.sm,      // Padding vertical
-    borderRadius: BorderRadius.lg,    // Borda arredondada
+    maxWidth: '80%',
+    paddingHorizontal: Spacing.md,
+    paddingTop: Spacing.sm,
+    paddingBottom: Spacing.md,
   },
-  
-  // Bolha do usuário
-  userBubble: {
-    backgroundColor: Colors.chat.userBubble, // Fundo
-    borderBottomRightRadius: Spacing.xs,     // "quebra" do canto (efeito chat)
-  },
-
-  // Bolha de outro usuário
-  otherBubble: {
-    backgroundColor: Colors.chat.otherBubble,
-    borderBottomLeftRadius: Spacing.xs,
-    borderWidth: 1,                           // Borda leve
-    borderColor: Colors.borderLight,
-  },
-  
-  // Username acima da bolha
+  userBubble: {},
+  otherBubble: {},
   username: {
-    fontSize: 12,                     // Tamanho pequeno
-    color: Colors.textSecondary,      // Cor secundária
-    fontWeight: '500',                // Peso médio
-    marginBottom: Spacing.xs,         // Espaço abaixo
-    marginLeft: Spacing.sm,           // Leve deslocamento
+    fontSize: 12,
+    color: Colors.textSecondary,
+    fontWeight: '500',
+    marginBottom: Spacing.xs,
+    marginLeft: Spacing.sm,
   },
-  
-  // Texto da mensagem
   message: {
-    fontSize: 16,                     // Tamanho padrão
-    lineHeight: 20,                   // Altura da linha (legibilidade)
+    fontSize: 16,
+    lineHeight: 20,
   },
-
-  // Cor da mensagem do usuário
   userMessage: {
-    color: Colors.chat.userText,
+    color: '#333',
   },
-
-  // Cor da mensagem de outro usuário
   otherMessage: {
     color: Colors.chat.otherText,
   },
-  
-  // Estilo base do timestamp
   timestamp: {
-    fontSize: 11,                     // Pequeno
-    marginTop: Spacing.xs,            // Espaço acima
+    fontSize: 11,
+    marginTop: Spacing.xs,
   },
-
-  // Timestamp do usuário
   userTimestamp: {
-    color: 'rgba(255, 255, 255, 0.7)', // Branco com transparência
-    textAlign: 'right',                // Alinhado à direita
+    color: 'rgba(0, 0, 0, 0.45)',
+    textAlign: 'right',
   },
-
-  // Timestamp de outro usuário
   otherTimestamp: {
-    color: Colors.textTertiary,        // Cor discreta
-    textAlign: 'left',                 // Alinhado à esquerda
+    color: Colors.textTertiary,
+    textAlign: 'left',
   },
 });

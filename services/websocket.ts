@@ -10,6 +10,7 @@ class WsService {
   private onMessageListeners: Listener[] = [];
   private onMatchingFoundListeners: Listener[] = [];
   private onUserLeftListeners: Listener[] = [];
+  private onConnectErrorListeners: Listener[] = [];
 
   async connect() {
     if (this.connected) return;
@@ -18,7 +19,10 @@ class WsService {
       this.socket.on('connect', () => {
         this.connected = true;
       });
-
+      this.socket.on('connect_error', (err) => {
+        this.connected = false;
+        this.onConnectErrorListeners.forEach(l => l(err));
+      });
       this.socket.on('message', (data: any) => this.onMessageListeners.forEach(l => l(data)));
       this.socket.on('matching-found', (data: any) => this.onMatchingFoundListeners.forEach(l => l(data)));
       this.socket.on('partner-left', () => this.onUserLeftListeners.forEach(l => l()));
@@ -35,22 +39,16 @@ class WsService {
     this.connected = false;
   }
 
-  onMessage(listener: Listener) {
-    this.onMessageListeners.push(listener);
-  }
-
-  onMatchingFound(listener: Listener) {
-    this.onMatchingFoundListeners.push(listener);
-  }
-
-  onUserLeft(listener: Listener) {
-    this.onUserLeftListeners.push(listener);
-  }
+  onMessage(listener: Listener) { this.onMessageListeners.push(listener); }
+  onMatchingFound(listener: Listener) { this.onMatchingFoundListeners.push(listener); }
+  onUserLeft(listener: Listener) { this.onUserLeftListeners.push(listener); }
+  onConnectError(listener: Listener) { this.onConnectErrorListeners.push(listener); }
 
   removeAllListeners() {
     this.onMessageListeners = [];
     this.onMatchingFoundListeners = [];
     this.onUserLeftListeners = [];
+    this.onConnectErrorListeners = [];
     this.socket?.off();
   }
 
@@ -59,17 +57,9 @@ class WsService {
     this.socket?.emit('find-match', { category });
   }
 
-  joinRoom(roomId: string) {
-    this.socket?.emit('join-room', { roomId });
-  }
-
-  leaveRoom(roomId: string) {
-    this.socket?.emit('leave-room', { roomId });
-  }
-
-  sendMessage(roomId: string, message: string) {
-    this.socket?.emit('send-message', { roomId, message });
-  }
+  joinRoom(roomId: string) { this.socket?.emit('join-room', { roomId }); }
+  leaveRoom(roomId: string) { this.socket?.emit('leave-room', { roomId }); }
+  sendMessage(roomId: string, message: string) { this.socket?.emit('send-message', { roomId, message }); }
 }
 
 export const wsService = new WsService();

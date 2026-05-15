@@ -2,6 +2,7 @@ export interface User {
     id: string;
     name: string;
     email: string;
+    avatarId?: string;
 }
 
 export interface ChatMessage {
@@ -15,6 +16,10 @@ export interface ChatMessage {
 export interface ChatCategory {
     id: string;
     name: string;
-    description: string;
     icon: string;
+}
+
+export interface ProfileData {
+    userName: string;
+    avatarId: string;
 }

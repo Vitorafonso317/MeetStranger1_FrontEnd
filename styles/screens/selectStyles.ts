@@ -1,0 +1,153 @@
+import { StyleSheet, Platform } from 'react-native';
+import { COLORS, SHADOWS, TEXT_SHADOWS } from '../../constants/colors';
+import { SPACING, BORDER_RADIUS, BORDER_WIDTH } from '../../constants/spacing';
+import { FONT_SIZE, FONT_WEIGHT } from '../../constants/typography';
+
+export const styles = StyleSheet.create({
+    bg: { flex: 1, width: '100%', overflow: 'hidden' },
+    safeArea: { flex: 1, width: '100%', overflow: 'hidden' },
+    header: {
+        backgroundColor: COLORS.headerBg,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: SPACING.lg,
+        paddingVertical: SPACING.md,
+        borderBottomWidth: BORDER_WIDTH.thin,
+        borderBottomColor: COLORS.border,
+    },
+    headerBtn: {
+        width: 44,
+        alignItems: 'center',
+    },
+    headerArrowRed: {
+        fontSize: 30,
+        fontWeight: FONT_WEIGHT.black,
+        color: COLORS.primary,
+        ...TEXT_SHADOWS.md,
+    },
+    headerTitle: {
+        fontSize: FONT_SIZE.xxl,
+        fontWeight: FONT_WEIGHT.black,
+        color: COLORS.white,
+        letterSpacing: 1,
+        ...TEXT_SHADOWS.md,
+    },
+    content: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: SPACING.lg,
+        paddingVertical: SPACING.xl,
+    },
+    badgeContainer: {
+        marginBottom: SPACING.lg,
+    },
+    badge: {
+        backgroundColor: COLORS.surface,
+        borderRadius: BORDER_RADIUS.xl,
+        borderWidth: BORDER_WIDTH.regular,
+        borderColor: COLORS.border,
+        paddingHorizontal: SPACING.xl,
+        paddingVertical: SPACING.sm,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: SPACING.sm,
+        ...SHADOWS.md,
+    },
+    badgeText: {
+        fontSize: FONT_SIZE.lg,
+        fontWeight: FONT_WEIGHT.black,
+        color: COLORS.accent,
+        letterSpacing: 1,
+        ...TEXT_SHADOWS.sm,
+    },
+    badgeIcon: { fontSize: FONT_SIZE.xl },
+    card: {
+        width: '100%',
+        backgroundColor: COLORS.surface,
+        borderRadius: BORDER_RADIUS.xl,
+        borderWidth: BORDER_WIDTH.regular,
+        borderColor: COLORS.border,
+        padding: SPACING.xxl,
+        alignItems: 'center',
+        ...SHADOWS.lg,
+    },
+    cardTitle: {
+        fontSize: FONT_SIZE.h3,
+        fontWeight: FONT_WEIGHT.black,
+        color: COLORS.accent,
+        letterSpacing: 3,
+        marginBottom: SPACING.xxl,
+        ...TEXT_SHADOWS.md,
+    },
+    categoryList: {
+        width: '100%',
+        gap: 14,
+        marginBottom: 28,
+    },
+    categoryBtn: {
+        backgroundColor: COLORS.surface,
+        borderRadius: BORDER_RADIUS.md,
+        borderWidth: BORDER_WIDTH.regular,
+        borderColor: COLORS.border,
+        paddingVertical: SPACING.lg,
+        alignItems: 'center',
+        ...SHADOWS.md,
+    },
+    categoryBtnSelected: {
+        backgroundColor: COLORS.primaryLight,
+        borderRadius: BORDER_RADIUS.md,
+        borderWidth: BORDER_WIDTH.regular,
+        borderColor: COLORS.primary,
+        paddingVertical: SPACING.lg,
+        alignItems: 'center',
+        ...Platform.select({
+            web: { boxShadow: '3px 3px 0px #b20d1d' },
+            default: {
+                shadowColor: '#b20d1d',
+                shadowOffset: { width: 3, height: 3 },
+                shadowOpacity: 1,
+                shadowRadius: 0,
+                elevation: 3,
+            },
+        }),
+    },
+    categoryBtnText: {
+        fontSize: FONT_SIZE.xxl,
+        fontWeight: FONT_WEIGHT.black,
+        color: COLORS.primary,
+        letterSpacing: 2,
+        ...TEXT_SHADOWS.md,
+    },
+    categoryBtnTextSelected: {
+        fontSize: FONT_SIZE.xxl,
+        fontWeight: FONT_WEIGHT.black,
+        color: COLORS.primary,
+        letterSpacing: 2,
+        ...Platform.select({
+            web: { textShadow: '2px 2px 0px #b20d1d' },
+            default: {
+                textShadowColor: '#b20d1d',
+                textShadowOffset: { width: 2, height: 2 },
+                textShadowRadius: 0,
+            },
+        }),
+    },
+    converseBtn: {
+        paddingHorizontal: SPACING.xxxl,
+        paddingVertical: 10,
+    },
+    converseBtnDisabled: {
+        paddingHorizontal: SPACING.xxxl,
+        paddingVertical: 10,
+        opacity: 0.4,
+    },
+    converseBtnText: {
+        fontSize: FONT_SIZE.xl,
+        fontWeight: FONT_WEIGHT.black,
+        color: COLORS.accent,
+        letterSpacing: 2,
+        ...TEXT_SHADOWS.sm,
+    },
+});

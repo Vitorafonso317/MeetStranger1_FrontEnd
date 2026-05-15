@@ -22,5 +22,5 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
     );
 }
 
-export default ChatMessage;
+export default React.memo(ChatMessage, (prev, next) => prev.message.id === next.message.id);
  

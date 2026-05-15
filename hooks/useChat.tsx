@@ -6,6 +6,7 @@ export function useChat(category: string) {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [isConnected, setIsConnected] = useState(false);
     const [isMatching, setIsMatching] = useState(false);
+    const [connectionError, setConnectionError] = useState(false);
     const [currentRoomId, setCurrentRoomId] = useState<string | null>(null);
     const [partnerName, setPartnerName] = useState<string>('Procurando...');
  
@@ -49,10 +50,16 @@ export function useChat(category: string) {
         console.log('⌛ Queue status:', data);
         setIsMatching(true);
     }, []);
+
+    const handleConnectError = useCallback(() => {
+        setConnectionError(true);
+        setIsMatching(false);
+    }, []);
  
     useEffect(() => {
         const initializeWebSocket = async () => {
             try {
+                setConnectionError(false);
                 if (!wsService.connected) {
                     await wsService.connect();
                 }
@@ -60,21 +67,23 @@ export function useChat(category: string) {
                 wsService.onMessage(handleNewMessage);
                 wsService.onMatchingFound(handleMatchFound);
                 wsService.onUserLeft(handleUserLeft);
-               
+                wsService.onConnectError(handleConnectError);
+
                 wsService.socket?.on('queue-status', handleQueueStatus);
                 wsService.socket?.on('partner-left', handleUserLeft);
-                console.log('Starting automatic match search for:', category);
                 wsService.findMatch(category);
                 setIsMatching(true);
             } catch (error) {
                 console.error('WebSocket initialization error:', error);
+                setConnectionError(true);
+                setIsMatching(false);
             }
         };
         initializeWebSocket();
         return () => {
             wsService.removeAllListeners()
         }
-    }, [category, handleNewMessage, handleMatchFound, handleUserLeft, handleQueueStatus]);
+    }, [category, handleNewMessage, handleMatchFound, handleUserLeft, handleQueueStatus, handleConnectError]);
 
     const sendMessage = async (text: string) => {
         if (!text.trim() || !currentRoomId) return;
@@ -122,6 +131,7 @@ export function useChat(category: string) {
         messages,
         isConnected,
         isMatching,
+        connectionError,
         partnerName,
         sendMessage,
         findNewPartner
